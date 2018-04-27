@@ -26,10 +26,6 @@ nav {
     height: 70px !important;
 }
 
-.header {
-
-}
-
-/* .nav-wrapper li a{
-    color: #be57ff !important;
-} */
+nav a.sidenav-trigger {
+    display: block;
+ }
