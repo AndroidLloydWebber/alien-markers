@@ -1,28 +1,29 @@
-function geocoder(){
-var address;
-var key = "AIzaSyAo3U3-CYQSA_L--3jjHzIIqBnngBiAMEU"
-var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + key;
+function geocoder() {
+    var formTitle = $("#event-title").val().trim();
+    var formAddress = $("#event-address").val().trim();
+    var formBody = $("#event-body").val().trim();
+    var formCategory = $("#dropdown").val();
+    var key = "AIzaSyAo3U3-CYQSA_L--3jjHzIIqBnngBiAMEU"
+    var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + formAddress + "&key=" + key;
 
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function(response){
-    db.POI.create({
-        title: "form title field",
-        address: "form address field",
-        lat: response.results["0"].geometry.location.lat,
-        lng: response.results["0"].geometry.location.lng,
-        link: "form link field",
-        category: "form category field",
-        body: "form body field"
-    }).then(function(dbPOI){
-        res.json(dbPOI);
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        db.POI.create({
+            title: formTitle,
+            address: formAddress,
+            lat: response.results["0"].geometry.location.lat,
+            lng: response.results["0"].geometry.location.lng,
+            // link: "form link field",
+            category: formCategory,
+            body: formBody
+        }).then(function (dbPOI) {
+            res.json(dbPOI);
+        })
+        console.log(response);
+
     })
-    
-    console.log(response.results["0"].geometry.location.lat)
-    console.log(response.results["0"].geometry.location.lng)
-
-})
 }
 
-module.exports = geocoder();
+module.exports = geocoder;
